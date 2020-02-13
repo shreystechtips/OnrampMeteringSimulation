@@ -7,9 +7,11 @@ class Road:
         # CONSTANTS        
         self.LANE_WIDTH = 50
         self.DRIVES_LEFT = False
+
+        # fields
         self.right_lanes = right_lanes
         self.left_lanes = left_lanes
     
-        # self.numpy_form = 
+        # self.numpy_form =  
 
     
