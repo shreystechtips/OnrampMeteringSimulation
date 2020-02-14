@@ -11,6 +11,8 @@ class ProjectionViewer:
         pg.display.set_caption('Traffic Simulation v1')
         self.background = (10, 10, 50)
 
+
+        self.iterator = 0
     def run(self):
         running = True
 
@@ -30,8 +32,9 @@ class ProjectionViewer:
 
         # this is the place to draw the components of the simulation
 
-        # test = pg.Rect(10, 50, 50, 50)
-        # pg.draw.rect(self.screen, (50, 40, 30), test)
+        test = pg.Rect(10 + self.iterator, 50, 50, 50)
+        self.iterator += 1
+        pg.draw.rect(self.screen, (50, 40, 30), test)
 
 
     def draw_road(road):
