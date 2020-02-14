@@ -1,45 +1,21 @@
-import numpy as np
-import random
 import pygame as pg
+import random
 import time
+from projection_viewer import ProjectionViewer as main_thread
 import sys
-from pygame.locals import *
 
 
-pg.init()
-lanes = 2
-lane_const = 20
-lanes = [200, 300]
-car_location = np.zeros([10, 10])
-rects = []
-w = pg.display.set_mode((700, 700))
-
-WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
+def update_rects(iterator_x, rects, iterator_y=0):
+    print(pg.Rect(10,
+                  random.randint(10, 690), 10, 10))
+    for rect in rects:
+        rect.left += iterator_x
+        rect.top += iterator_y
 
 
-def init():
-    # for i in range(10):
-    #     rects.append(pg.Rect(random.choice(lanes),
-    #                          random.randint(10, 690), 10, 10))
-    #random.randint(10, 690)
-    # random.choice(lanes)
-
-    print(rects)
-
-
-init()
-
-
-w.fill(WHITE)
-
-while True:
-    for event in pg.event.get():
-        if event.type == QUIT:
-            pg.quit()
-            sys.exit()
-    for i in range(10):
-        pg.draw.rect(w, BLUE, pg.Rect(30,
-                                      30, 60, 60))
-    w.fill(WHITE)
-    pg.display.flip()
+def create_rects(num_rects, size_x=30, size_y=30, lanes=[50, 100], x_screen=690):
+    rects = []
+    for i in range(num_rects):
+        rects.append(pg.Rect(random.randint(10, x_screen),
+                             random.choice(lanes), size_x, size_y))
+    return rects
