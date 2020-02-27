@@ -2,6 +2,7 @@
 import pygame as pg
 import numpy as np
 import main as rects
+import constants as const
 # modules
 
 class ProjectionViewer:
@@ -11,7 +12,7 @@ class ProjectionViewer:
         self.screen = pg.display.set_mode((width, height))
         pg.display.set_caption('Traffic Simulation v1')
         self.background = (10, 10, 50)
-        self.cars = rects.create_rects(250, size_x=10, size_y=10, lanes = range(50,800, 50))
+        self.cars_x,self.cars_y,self.velocity_x,self.velocity_y = rects.create_rects(50, size_x=const.CONST_CAR_SIZE_X, size_y=const.CONST_CAR_SIZE_Y, lanes = range(50,800, 50))
 
 
         self.iterator = 0
@@ -27,20 +28,19 @@ class ProjectionViewer:
             self.screen.fill(self.background)
             self.display()
             pg.display.flip()
-            pg.time.delay(50)
+            pg.time.delay(const.CONST_FRAME_TIME_MS)
     
     
     def display(self):
         self.screen.fill(self.background)
 
         # this is the place to draw the components of the simulation
-
-        test = pg.Rect(10 + self.iterator, 50, 50, 50)
         self.iterator += 1
-        rects.update_rects(10,self.cars)
-        for rect in self.cars:
-            pg.draw.rect(self.screen, (50, 40, 30), rect.rect)
-
+        self.cars_x,self.cars_y= rects.update_rects(10,self.cars_x,self.cars_y,self.velocity_x,self.velocity_y)
+        iter = 0
+        while iter < len(self.cars_x):
+            pg.draw.rect(self.screen, (50, 40, 30), pg.Rect(self.cars_x[iter][0],self.cars_y[iter][0],const.CONST_CAR_SIZE_X,const.CONST_CAR_SIZE_Y))
+            iter += 1
 
     def draw_road(road):
         pass
