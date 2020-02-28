@@ -36,7 +36,7 @@ class ProjectionViewer:
 
         # this is the place to draw the components of the simulation
         self.iterator += 1
-        self.cars_x,self.cars_y= rects.update_rects(10,self.cars_x,self.cars_y,self.velocity_x,self.velocity_y)
+        self.cars_x,self.cars_y,self.velocity_x,self.velocity_y = rects.update_rects(self.cars_x,self.cars_y,self.velocity_x,self.velocity_y, self.iterator)
         iter = 0
         while iter < len(self.cars_x):
             pg.draw.rect(self.screen, (50, 40, 30), pg.Rect(self.cars_x[iter][0],self.cars_y[iter][0],const.CONST_CAR_SIZE_X,const.CONST_CAR_SIZE_Y))
