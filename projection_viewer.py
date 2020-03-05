@@ -20,16 +20,15 @@ class ProjectionViewer:
         self.screen = pg.display.set_mode((width, height))
         pg.display.set_caption('Traffic Simulation v1')
         self.background = (10, 10, 50)
-<<<<<<< HEAD
         self.cars = rects.create_rects(250, size_x=10, size_y=10, lanes = range(50,800, 50))
         self.roads = []
-=======
         self.cars_x,self.cars_y,self.velocity_x,self.velocity_y = rects.create_rects(50, size_x=const.CONST_CAR_SIZE_X, size_y=const.CONST_CAR_SIZE_Y, lanes = range(50,800, 50))
 
->>>>>>> 1a52e39ad19ea9828656ced02b95e5ce502135c9
+
 
         self.iterator = 0
         self.edge_color = (200,200,200)
+
     def run(self):
         running = True
 
