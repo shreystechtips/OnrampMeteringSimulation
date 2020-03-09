@@ -22,7 +22,7 @@ class ProjectionViewer:
         self.background = (10, 10, 50)
         self.cars = rects.create_rects(250, size_x=10, size_y=10, lanes = range(50,800, 50))
         self.roads = []
-        self.cars_x,self.cars_y,self.velocity_x,self.velocity_y = rects.create_rects(50, size_x=const.CONST_CAR_SIZE_X, size_y=const.CONST_CAR_SIZE_Y, lanes = range(50,800, 50))
+        self.cars_x,self.cars_y,self.velocity_x,self.velocity_y, self.cars = rects.create_rects(4, size_x=const.CONST_CAR_SIZE_X, size_y=const.CONST_CAR_SIZE_Y, lanes = range(50,800, 50))
 
 
 
@@ -58,7 +58,14 @@ class ProjectionViewer:
         for road in self.roads:
             pg.draw.circle(self.screen, [255,255,255], road.start, 5)
             pg.draw.circle(self.screen, [255,255,255], road.end, 5)
-            self.draw_road(road)    
+            self.draw_road(road) 
+        self.iterator += 1
+        
+        self.cars_x,self.cars_y,self.velocity_x,self.velocity_y = rects.update_rects(self.cars_x,self.cars_y,self.velocity_x,self.velocity_y, self.iterator)
+        iter = 0
+        while iter < len(self.cars_x):
+            pg.draw.rect(self.screen, (50, 40, 30), pg.Rect(self.cars_x[iter][0],self.cars_y[iter][0],const.CONST_CAR_SIZE_X,const.CONST_CAR_SIZE_Y))
+            iter += 1   
 
     def draw_road(self, road):
         length = np.linalg.norm(road.end - road.start)
@@ -71,12 +78,6 @@ class ProjectionViewer:
             [length, radius],
             [length, -radius]
         ])
-        # self.iterator += 1
-        # self.cars_x,self.cars_y,self.velocity_x,self.velocity_y = rects.update_rects(self.cars_x,self.cars_y,self.velocity_x,self.velocity_y, self.iterator)
-        # iter = 0
-        # while iter < len(self.cars_x):
-            # pg.draw.rect(self.screen, (50, 40, 30), pg.Rect(self.cars_x[iter][0],self.cars_y[iter][0],const.CONST_CAR_SIZE_X,const.CONST_CAR_SIZE_Y))
-            # iter += 1
         translate = np.array([road.start[0], -road.start[1]])
         graphic_points = (pre_rotated  - translate) @ rot_matrix(angle) + translate 
         # print(graphic_points[0])
